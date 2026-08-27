@@ -1113,22 +1113,25 @@ function saveToLocalStorage() {
 
 
 function loadFromLocalStorage() {
-
-  const saved =
-    localStorage.getItem(STORAGE_KEY)
+  const saved = localStorage.getItem(STORAGE_KEY)
 
   if (!saved) {
+    products.value = []
     return
   }
 
   try {
+    const parsed = JSON.parse(saved)
 
-    products.value =
-      JSON.parse(saved)
-
+    if (Array.isArray(parsed)) {
+      products.value = parsed
+    } else {
+      products.value = []
+      localStorage.removeItem(STORAGE_KEY)
+    }
   } catch {
-
     products.value = []
+    localStorage.removeItem(STORAGE_KEY)
 
   }
 
