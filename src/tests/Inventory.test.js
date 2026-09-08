@@ -78,37 +78,33 @@ describe('Inventory Management System', () => {
   })
 
 
-  // TEST 4 — Search Products
+  // TEST 4 — Search by Product Name
   it('should filter products when searching by product name', async () => {
-    const products = [
-      {
-        id: 1,
-        productId: 'P001',
-        productName: 'Gaming Mouse',
-        description: 'Wireless mouse',
-        category: 'Electronics',
-        quantity: 10,
-        price: 500,
-        stockStatus: 'In Stock'
-      },
-      {
-        id: 2,
-        productId: 'P002',
-        productName: 'Keyboard',
-        description: 'Mechanical keyboard',
-        category: 'Electronics',
-        quantity: 5,
-        price: 1000,
-        stockStatus: 'In Stock'
-      }
-    ]
-
     const wrapper = mount(ProductList, {
-      props: { products }
+      props: {
+        products: [
+          {
+            productId: 'P001',
+            productName: 'Gaming Mouse',
+            category: 'Accessories',
+            quantity: 10,
+            price: 500,
+            stockStatus: 'In Stock'
+          },
+          {
+            productId: 'P002',
+            productName: 'Keyboard',
+            category: 'Accessories',
+            quantity: 5,
+            price: 800,
+            stockStatus: 'Low Stock'
+          }
+        ]
+      }
     })
 
     const searchInput = wrapper.find(
-      'input[placeholder="Search product..."]'
+      'input[placeholder="Search ID, name, or category..."]'
     )
 
     await searchInput.setValue('mouse')
@@ -143,6 +139,255 @@ describe('Inventory Management System', () => {
 
     expect(wrapper.emitted('delete')).toBeTruthy()
     expect(wrapper.emitted('delete')[0]).toEqual([1])
+  })
+
+
+  // TEST 6 — Search by Product ID
+  it('should filter products when searching by product ID', async () => {
+    const wrapper = mount(ProductList, {
+      props: {
+        products: [
+          {
+            productId: 'P001',
+            productName: 'Gaming Mouse',
+            category: 'Accessories',
+            quantity: 10,
+            price: 500,
+            stockStatus: 'In Stock'
+          },
+          {
+            productId: 'P002',
+            productName: 'Keyboard',
+            category: 'Accessories',
+            quantity: 5,
+            price: 800,
+            stockStatus: 'Low Stock'
+          }
+        ]
+      }
+    })
+
+    const searchInput = wrapper.find(
+      'input[placeholder="Search ID, name, or category..."]'
+    )
+
+    await searchInput.setValue('P002')
+
+    expect(wrapper.text()).toContain('Keyboard')
+    expect(wrapper.text()).not.toContain('Gaming Mouse')
+  })
+
+
+  // TEST 7 — Search by Category
+  it('should filter products when searching by category', async () => {
+    const wrapper = mount(ProductList, {
+      props: {
+        products: [
+          {
+            productId: 'P001',
+            productName: 'Gaming Mouse',
+            category: 'Accessories',
+            quantity: 10,
+            price: 500,
+            stockStatus: 'In Stock'
+          },
+          {
+            productId: 'P002',
+            productName: 'Office Chair',
+            category: 'Furniture',
+            quantity: 5,
+            price: 8000,
+            stockStatus: 'Low Stock'
+          }
+        ]
+      }
+    })
+
+    const searchInput = wrapper.find(
+      'input[placeholder="Search ID, name, or category..."]'
+    )
+
+    await searchInput.setValue('Furniture')
+
+    expect(wrapper.text()).toContain('Office Chair')
+    expect(wrapper.text()).not.toContain('Gaming Mouse')
+  })
+
+
+  // TEST 8 — In Stock Filter
+  it('should display only In Stock products when the In Stock filter is selected', async () => {
+    const wrapper = mount(ProductList, {
+      props: {
+        products: [
+          {
+            productId: 'P001',
+            productName: 'Gaming Mouse',
+            category: 'Accessories',
+            quantity: 10,
+            price: 500,
+            stockStatus: 'In Stock'
+          },
+          {
+            productId: 'P002',
+            productName: 'Keyboard',
+            category: 'Accessories',
+            quantity: 2,
+            price: 800,
+            stockStatus: 'Low Stock'
+          },
+          {
+            productId: 'P003',
+            productName: 'Monitor',
+            category: 'Electronics',
+            quantity: 0,
+            price: 5000,
+            stockStatus: 'Out of Stock'
+          }
+        ]
+      }
+    })
+
+    const selects = wrapper.findAll('select')
+
+    await selects[0].setValue('In Stock')
+
+    expect(wrapper.text()).toContain('Gaming Mouse')
+    expect(wrapper.text()).not.toContain('Keyboard')
+    expect(wrapper.text()).not.toContain('Monitor')
+  })
+
+
+  // TEST 9 — Low Stock Filter
+  it('should display only Low Stock products when the Low Stock filter is selected', async () => {
+    const wrapper = mount(ProductList, {
+      props: {
+        products: [
+          {
+            productId: 'P001',
+            productName: 'Gaming Mouse',
+            category: 'Accessories',
+            quantity: 10,
+            price: 500,
+            stockStatus: 'In Stock'
+          },
+          {
+            productId: 'P002',
+            productName: 'Keyboard',
+            category: 'Accessories',
+            quantity: 2,
+            price: 800,
+            stockStatus: 'Low Stock'
+          },
+          {
+            productId: 'P003',
+            productName: 'Monitor',
+            category: 'Electronics',
+            quantity: 0,
+            price: 5000,
+            stockStatus: 'Out of Stock'
+          }
+        ]
+      }
+    })
+
+    const selects = wrapper.findAll('select')
+
+    await selects[0].setValue('Low Stock')
+
+    expect(wrapper.text()).toContain('Keyboard')
+    expect(wrapper.text()).not.toContain('Gaming Mouse')
+    expect(wrapper.text()).not.toContain('Monitor')
+  })
+
+
+  // TEST 10 — Out of Stock Filter
+  it('should display only Out of Stock products when the Out of Stock filter is selected', async () => {
+    const wrapper = mount(ProductList, {
+      props: {
+        products: [
+          {
+            productId: 'P001',
+            productName: 'Gaming Mouse',
+            category: 'Accessories',
+            quantity: 10,
+            price: 500,
+            stockStatus: 'In Stock'
+          },
+          {
+            productId: 'P002',
+            productName: 'Keyboard',
+            category: 'Accessories',
+            quantity: 2,
+            price: 800,
+            stockStatus: 'Low Stock'
+          },
+          {
+            productId: 'P003',
+            productName: 'Monitor',
+            category: 'Electronics',
+            quantity: 0,
+            price: 5000,
+            stockStatus: 'Out of Stock'
+          }
+        ]
+      }
+    })
+
+    const selects = wrapper.findAll('select')
+
+    await selects[0].setValue('Out of Stock')
+
+    expect(wrapper.text()).toContain('Monitor')
+    expect(wrapper.text()).not.toContain('Gaming Mouse')
+    expect(wrapper.text()).not.toContain('Keyboard')
+  })
+
+
+  // TEST 11 — Combined Search and Filter
+  it('should combine search and status filtering correctly', async () => {
+    const wrapper = mount(ProductList, {
+      props: {
+        products: [
+          {
+            productId: 'P001',
+            productName: 'Gaming Mouse',
+            category: 'Accessories',
+            quantity: 10,
+            price: 500,
+            stockStatus: 'In Stock'
+          },
+          {
+            productId: 'P002',
+            productName: 'Gaming Keyboard',
+            category: 'Accessories',
+            quantity: 2,
+            price: 800,
+            stockStatus: 'Low Stock'
+          },
+          {
+            productId: 'P003',
+            productName: 'Office Chair',
+            category: 'Furniture',
+            quantity: 0,
+            price: 8000,
+            stockStatus: 'Out of Stock'
+          }
+        ]
+      }
+    })
+
+    const searchInput = wrapper.find(
+      'input[placeholder="Search ID, name, or category..."]'
+    )
+
+    const selects = wrapper.findAll('select')
+
+    await searchInput.setValue('Gaming')
+    await selects[0].setValue('Low Stock')
+
+    expect(wrapper.text()).toContain('Gaming Keyboard')
+    expect(wrapper.text()).not.toContain('Gaming Mouse')
+    expect(wrapper.text()).not.toContain('Office Chair')
   })
 
 })
