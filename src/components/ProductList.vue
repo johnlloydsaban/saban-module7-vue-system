@@ -26,26 +26,73 @@
 
       </div>
 
+<!-- Search + Filters -->
+<div class="flex flex-col gap-3 sm:flex-row sm:items-center">
 
-      <!-- Search -->
-      <div class="relative sm:w-72">
+  <!-- Search -->
+  <div class="relative sm:w-72">
 
-        <input
-          v-model="searchTerm"
-          type="text"
-          placeholder="Search product..."
-          class="dark-input pl-10"
-        />
+    <input
+      v-model="searchTerm"
+      type="text"
+      placeholder="Search ID, name, or category..."
+      class="dark-input pl-10"
+    />
 
-        <span
-          class="absolute left-3 top-3 text-gray-500"
-        >
-          ⌕
-        </span>
+    <span
+      class="absolute left-3 top-3 text-gray-500"
+    >
+      ⌕
+    </span>
 
-      </div>
+  </div>
 
-    </div>
+  <!-- Status Filter -->
+  <select
+    v-model="statusFilter"
+    class="dark-input sm:w-44"
+  >
+
+    <option value="All">
+      All Status
+    </option>
+
+    <option value="In Stock">
+      In Stock
+    </option>
+
+    <option value="Low Stock">
+      Low Stock
+    </option>
+
+    <option value="Out of Stock">
+      Out of Stock
+    </option>
+
+  </select>
+
+  <!-- Category Filter -->
+  <select
+    v-model="categoryFilter"
+    class="dark-input sm:w-48"
+  >
+
+    <option value="All">
+      All Categories
+    </option>
+
+    <option
+      v-for="category in categories"
+      :key="category"
+      :value="category"
+    >
+      {{ category }}
+    </option>
+
+  </select>
+
+</div>
+</div>
 
 
     <!-- Empty -->
@@ -341,28 +388,62 @@ defineEmits([
 
 const searchTerm = ref('')
 
+const statusFilter = ref('All')
 
-const filteredProducts =
-  computed(() => {
+const categoryFilter = ref('All')
 
-    const keyword =
-      searchTerm.value
+
+const categories = computed(() => {
+
+  const uniqueCategories = new Set(
+    props.products
+      .map(product => product.category)
+      .filter(Boolean)
+  )
+
+  return Array.from(uniqueCategories).sort()
+
+})
+
+
+const filteredProducts = computed(() => {
+
+  const keyword =
+    searchTerm.value
+      .toLowerCase()
+      .trim()
+
+  return props.products.filter(product => {
+
+    const matchesSearch =
+      !keyword ||
+      String(product.productId || '')
         .toLowerCase()
-        .trim()
+        .includes(keyword) ||
+      String(product.productName || '')
+        .toLowerCase()
+        .includes(keyword) ||
+      String(product.category || '')
+        .toLowerCase()
+        .includes(keyword)
 
-    if (!keyword) {
-      return props.products
-    }
+    const matchesStatus =
+      statusFilter.value === 'All' ||
+      product.stockStatus === statusFilter.value
 
-    return props.products.filter(
-      product =>
-        product.productName
-          .toLowerCase()
-          .includes(keyword)
+    const matchesCategory =
+      categoryFilter.value === 'All' ||
+      product.category === categoryFilter.value
+
+    return (
+      matchesSearch &&
+      matchesStatus &&
+      matchesCategory
     )
 
   })
 
+})
 
 function statusClass(status) {
 
