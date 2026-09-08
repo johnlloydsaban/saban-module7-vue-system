@@ -156,27 +156,33 @@ The change improves the existing Inventory Management System by adding product s
 9. Existing Add Product, Edit Product, Delete Product, Validation, Login, Register, Logout, and Local Storage functions continue to work correctly.
 10. The existing automated tests and production build continue to pass after the changes.
 
-Updated Test Cases
-Test Case ID	Test Case	Expected Result	Actual Result	Status
-TC01	Add Product	New product is added successfully.	Product is added successfully.	PASS
-TC02	Add Product with Empty Fields	Required-field validation message is displayed.	Validation message is displayed.	PASS
-TC03	Edit Product	Existing product information is updated successfully.	Product information is updated successfully.	PASS
-TC04	Delete Product	Product is removed after delete confirmation/action.	Product is removed successfully.	PASS
-TC05	Search by Product Name	Matching products are displayed.	Matching products are displayed.	PASS
-TC06	Search by Product ID	Product matching the entered ID is displayed.	Matching product is displayed.	PASS
-TC07	Search by Category	Products matching the category are displayed.	Matching category products are displayed.	PASS
-TC08	In Stock Filter	Only products with In Stock status are displayed.	Only In Stock products are displayed.	PASS
-TC09	Low Stock Filter	Only products with Low Stock status are displayed.	Only Low Stock products are displayed.	PASS
-TC10	Out of Stock Filter	Only products with Out of Stock status are displayed.	Only Out of Stock products are displayed.	PASS
-TC11	Combined Search and Filter	Search results match both the keyword and selected filter.	Matching filtered results are displayed.	PASS
-TC12	Existing Feature Regression	Login, Register, Logout, Add, Edit, Delete, Validation, and Local Storage continue working correctly.	Existing features continue working correctly.	PASS
-Automated Test Evidence
+## Updated Test Cases
+
+| Test Case ID | Test Case | Expected Result | Actual Result | Status |
+|---|---|---|---|---|
+| TC01 | Add Product | New product is added successfully. | Product was added successfully. | PASS |
+| TC02 | Add Product with Empty Fields | Required-field validation message is displayed. | Validation message was displayed. | PASS |
+| TC03 | Edit Product | Existing product information is updated successfully. | Product information was updated successfully. | PASS |
+| TC04 | Delete Product | Product is removed after delete action. | Product was removed successfully. | PASS |
+| TC05 | Search by Product Name | Matching products are displayed. | Matching products were displayed. | PASS |
+| TC06 | Search by Product ID | Product matching the entered ID is displayed. | Matching product was displayed. | PASS |
+| TC07 | Search by Category | Products matching the category are displayed. | Matching category products were displayed. | PASS |
+| TC08 | In Stock Filter | Only products with In Stock status are displayed. | Only In Stock products were displayed. | PASS |
+| TC09 | Low Stock Filter | Only products with Low Stock status are displayed. | Only Low Stock products were displayed. | PASS |
+| TC10 | Out of Stock Filter | Only products with Out of Stock status are displayed. | Only Out of Stock products were displayed. | PASS |
+| TC11 | Combined Search and Filter | Results match both the search keyword and selected filter. | Matching filtered results were displayed. | PASS |
+| TC12 | Existing Feature Regression | Login, Register, Logout, Add, Edit, Delete, Validation, and Local Storage continue working. | Existing features continued working correctly. | PASS |
+
+### Automated Test Evidence
+
+| Test | Result |
+|---|---|
+| Vitest | 5 tests passed, 0 failed |s
+| Production Build | Successful |
+| Regression Testing | Passed |
+| GitHub Actions | Successful |
 
 
-Vitest: 5 tests passed, 0 failed
-Production Build: Successful
-Regression Testing: Passed
-GitHub Actions: Successful
 
 ## Impact Analysis
 
