@@ -1,3 +1,4 @@
+
 # Inventory Management System
 
 A web-based Inventory Management System developed using Vue.js for Software Engineering 1 – Module 7.
@@ -125,8 +126,9 @@ saban-module7-vue-system/
 ├── package-lock.json
 ├── README.md
 └── vite.config.js
+````
 
-
+---
 
 # Module 9 – Software Evolution
 
@@ -157,66 +159,23 @@ The change improves the existing Inventory Management System by adding product s
 9. Existing Add Product, Edit Product, Delete Product, Validation, Login, Register, Logout, and Local Storage functions continue to work correctly.
 10. The existing automated tests and production build continue to pass after the changes.
 
+---
+
 ## Updated Test Cases
 
-| Test Case ID | Test Case | Expected Result | Actual Result | Status |
-|---|---|---|---|---|
-| TC01 | Add Product | New product is added successfully. | Product was added successfully. | PASS |
-| TC02 | Add Product with Empty Fields | Required-field validation message is displayed. | Validation message was displayed. | PASS |
-| TC03 | Edit Product | Existing product information is updated successfully. | Product information was updated successfully. | PASS |
-| TC04 | Delete Product | Product is removed after delete action. | Product was removed successfully. | PASS |
-| TC05 | Search by Product Name | Matching products are displayed. | Matching products were displayed. | PASS |
-| TC06 | Search by Product ID | Product matching the entered ID is displayed. | Matching product was displayed. | PASS |
-| TC07 | Search by Category | Products matching the category are displayed. | Matching category products were displayed. | PASS |
-| TC08 | In Stock Filter | Only products with In Stock status are displayed. | Only In Stock products were displayed. | PASS |
-| TC09 | Low Stock Filter | Only products with Low Stock status are displayed. | Only Low Stock products were displayed. | PASS |
-| TC10 | Out of Stock Filter | Only products with Out of Stock status are displayed. | Only Out of Stock products were displayed. | PASS |
-| TC11 | Combined Search and Filter | Results match both the search keyword and selected filter. | Matching filtered results were displayed. | PASS |
-| TC12 | Existing Feature Regression | Login, Register, Logout, Add, Edit, Delete, Validation, and Local Storage continue working. | Existing features continued working correctly. | PASS |
+| Test Case ID | Test Case                     | Expected Result                                                                             | Actual Result                                  | Status |
+| ------------ | ----------------------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------- | ------ |
+| TC01         | Add Product                   | New product is added successfully.                                                          | Product was added successfully.                | PASS   |
+| TC02         | Add Product with Empty Fields | Required-field validation message is displayed.                                             | Validation message was displayed.              | PASS   |
+| TC03         | Edit Product                  | Existing product information is updated successfully.                                       | Product information was updated successfully.  | PASS   |
+| TC04         | Delete Product                | Product is removed after delete action.                                                     | Product was removed successfully.              | PASS   |
+| TC05         | Search by Product Name        | Matching products are displayed.                                                            | Matching products were displayed.              | PASS   |
+| TC06         | Search by Product ID          | Product matching the entered ID is displayed.                                               | Matching product was displayed.                | PASS   |
+| TC07         | Search by Category            | Products matching the category are displayed.                                               | Matching category products were displayed.     | PASS   |
+| TC08         | In Stock Filter               | Only products with In Stock status are displayed.                                           | Only In Stock products were displayed.         | PASS   |
+| TC09         | Low Stock Filter              | Only products with Low Stock status are displayed.                                          | Only Low Stock products were displayed.        | PASS   |
+| TC10         | Out of Stock Filter           | Only products with Out of Stock status are displayed.                                       | Only Out of Stock products were displayed.     | PASS   |
+| TC11         | Combined Search and Filter    | Results match both the search keyword and selected filter.                                  | Matching filtered results were displayed.      | PASS   |
+| TC12         | Existing Feature Regression   | Login, Register, Logout, Add, Edit, Delete, Validation, and Local Storage continue working. | Existing features continued working correctly. | PASS   |
 
-### Automated Test Evidence
-
-| Test | Result |
-|---|---|
-| Vitest | 5 tests passed, 0 failed |s
-| Production Build | Successful |
-| Regression Testing | Passed |
-| GitHub Actions | Successful |
-
-
-
-## Impact Analysis
-
-### Affected Components
-
-| Component | Impact | Description |
-|---|---|---|
-| ProductList.vue | High | Updated to support product ID, name, category, and status filtering. |
-| App.vue | Medium | Continues supplying product records to the inventory components. |
-| Dashboard | Medium | Uses inventory data for product and stock statistics. |
-| ProductForm.vue | Low | Existing product creation and validation must continue working. |
-| Local Storage | Low | Existing product persistence must remain unchanged. |
-| Authentication | Low | Login, Register, and Logout must continue working after the update. |
-
-### Existing Features at Risk
-
-- Add Product
-- Edit Product
-- Delete Product
-- Product Search
-- Form Validation
-- Login
-- Register
-- Logout
-- Local Storage Persistence
-
-### New Features
-
-- Product Status Filter
-- Category Filter
-- Product ID Search
-- Combined Search and Filtering
-
-### Regression Strategy
-
-After implementing the changes, the existing inventory and authentication functions will be tested again to confirm that the new filtering functionality does not break previously working features.
+```
